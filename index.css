@@ -563,6 +563,7 @@ body.scroll-locked {
   min-height: 100vh;
   height: 100vh;
   max-height: 100vh;
+  background: radial-gradient(ellipse at 70% 50%, rgba(var(--ash-rgb), 0.8) 0%, rgba(255,255,255,0.8) 50%, var(--bg) 100%);
 }
 
 .hero-left {
@@ -572,8 +573,6 @@ body.scroll-locked {
   padding: 120px clamp(32px, 5vw, 80px) 180px;
   position: relative;
   z-index: 3;
-  background: rgba(255,255,255,0.6);
-  backdrop-filter: blur(4px);
 }
 
 .hero-left::after {
@@ -585,7 +584,6 @@ body.scroll-locked {
   height: 100%;
   min-height: 100vh;
   overflow: hidden;
-  background: radial-gradient(ellipse at 50% 50%, rgba(var(--ash-rgb), 0.9), var(--white) 70%);
 }
 
 .hero-right::before {
@@ -1403,6 +1401,9 @@ body.scroll-locked {
   .pipeline-navigation {
     grid-template-columns: repeat(2, 1fr);
   }
+  .bg-orbs {
+    display: none !important;
+  }
 }
 
 .pipeline-tab {
@@ -2108,7 +2109,7 @@ body.scroll-locked {
   position: relative;
   width: 100%;
   overflow: hidden;
-  background: linear-gradient(to bottom, var(--bg) 0%, var(--ash) 25%, var(--white) 100%);
+  background: linear-gradient(to bottom, var(--white) 0%, var(--ash) 50%, var(--bg) 100%);
   padding: 140px clamp(20px, 5vw, 80px) 100px;
   z-index: 1;
   border-top: none;
@@ -4715,6 +4716,7 @@ body.scroll-locked {
 .maps-reputation {
   position: relative;
   overflow: hidden;
+  background: var(--white);
 }
 
 .maps-showcase {
