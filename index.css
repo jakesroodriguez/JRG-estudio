@@ -5125,8 +5125,22 @@ body.scroll-locked {
 
 @media (max-width: 640px) {
   .portfolio-grid {
-    grid-template-columns: 1fr;
-    gap: 24px;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding-bottom: 16px;
+    -webkit-overflow-scrolling: touch;
+    /* Hide scrollbar completely as requested */
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+  }
+  .portfolio-grid::-webkit-scrollbar {
+    display: none;
+  }
+  .portfolio-card {
+    flex: 0 0 85%;
+    scroll-snap-align: center;
   }
 }
 
@@ -5175,6 +5189,21 @@ body.scroll-locked {
   background-clip: text;
   white-space: nowrap;
   letter-spacing: -0.02em;
+}
+
+@media (max-width: 768px) {
+  .scroll-fill-wrapper {
+    padding: 20px 0;
+  }
+  .scroll-fill-text {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    -webkit-text-stroke: 0;
+    background: linear-gradient(135deg, var(--navy) 0%, #6366f1 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    /* Overrides the dynamic fill for better mobile performance */
+  }
 }
 
 /* 3. Rotating Text Ring */

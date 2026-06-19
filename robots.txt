@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jrg.agency/sitemap.xml
+Sitemap: https://jrgestudio.com/sitemap.xml
