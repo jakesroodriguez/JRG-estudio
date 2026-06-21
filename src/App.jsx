@@ -56,6 +56,11 @@ import React, { useEffect, useRef, useState } from 'react';
         mapsReviewName: "María G.",
         mapsReviewText: "«Increíble trato y profesionalidad. Totalmente recomendado.»",
         mapsReviewTime: "Hace 2 horas",
+        myGoogleTitle: "Lleva tu negocio al siguiente nivel con Google Business",
+        myGoogleDesc: "Posiciono tu marca en Google Maps y SEO Local para convertir búsquedas de Google en clientes reales y recurrentes.",
+        myGoogleBtn: "Ver en Google Maps",
+        seoTitle: "JRG estudio | Diseñador & Desarrollador Web Freelance en el País Vasco",
+        seoDesc: "Creador de páginas web y desarrollador freelance en el País Vasco (JRG estudio). Especialista en diseño web interactivo, SEO local y rendimiento.",
       },
       en: {
         availChip: "Available for new projects",
@@ -105,6 +110,11 @@ import React, { useEffect, useRef, useState } from 'react';
         mapsReviewName: "Sarah M.",
         mapsReviewText: "«Incredible service and professionalism. Highly recommended.»",
         mapsReviewTime: "2 hours ago",
+        myGoogleTitle: "Elevate your business with Google Business",
+        myGoogleDesc: "I rank your brand on Google Maps and Local SEO to convert search queries into real, paying clients.",
+        myGoogleBtn: "View on Google Maps",
+        seoTitle: "JRG estudio | Freelance Web Designer & Developer in the Basque Country",
+        seoDesc: "Website creator and freelance developer in the Basque Country (JRG estudio). Specialist in interactive web design, local SEO, and performance.",
       },
       eu: {
         availChip: "Proiektu berrietarako erabilgarri",
@@ -154,6 +164,11 @@ import React, { useEffect, useRef, useState } from 'react';
         mapsReviewName: "Miren G.",
         mapsReviewText: "«Tratu eta profesionaltasun ezin hobea. Erabat gomendagarria.»",
         mapsReviewTime: "Duela 2 ordu",
+        myGoogleTitle: "Eraman zure negozioa hurrengo mailara Google Business-ekin",
+        myGoogleDesc: "Zure marka Google Maps-en eta Tokiko SEOan kokatzeko zerbitzua, bilaketak bezero erreal bilakatzeko.",
+        myGoogleBtn: "Ikusi Google Maps-en",
+        seoTitle: "JRG estudio | Web Diseinatzaile eta Garatzaile Freelancea Euskal Herrian",
+        seoDesc: "Webguneen sortzailea eta garatzaile freelancea Euskal Herrian (JRG estudio). Web diseinu interaktiboan, tokiko SEOan eta errendimenduan aditua.",
       }
     };
 
@@ -320,8 +335,8 @@ import React, { useEffect, useRef, useState } from 'react';
               if (container) {
                 const rect = container.getBoundingClientRect();
                 const viewportHeight = window.innerHeight;
-                const start = rect.top - viewportHeight;
-                const progress = Math.max(0, Math.min(1, -start / (viewportHeight + rect.height)));
+                const range = viewportHeight * 0.6;
+                const progress = Math.max(0, Math.min(1, (viewportHeight - rect.top) / range));
                 setScrollProgress((prev) => Math.max(prev, progress));
               }
               ticking = false;
@@ -838,11 +853,43 @@ import React, { useEffect, useRef, useState } from 'react';
       const [scrollFill, setScrollFill] = useState(0);
       const [isScrolled, setIsScrolled] = useState(false);
 
+      const t = TRANSLATIONS[lang];
+
       const greetings = ['BIENVENIDO', 'WELCOME', 'ONGI ETORRI'];
 
       useEffect(() => {
         document.documentElement.lang = lang;
-      }, [lang]);
+        
+        // SEO Dynamic Updates
+        if (t.seoTitle) {
+          document.title = t.seoTitle;
+        }
+        
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc && t.seoDesc) {
+          metaDesc.setAttribute('content', t.seoDesc);
+        }
+        
+        const ogTitle = document.querySelector('meta[property="og:title"]');
+        if (ogTitle && t.seoTitle) {
+          ogTitle.setAttribute('content', t.seoTitle);
+        }
+        
+        const ogDesc = document.querySelector('meta[property="og:description"]');
+        if (ogDesc && t.seoDesc) {
+          ogDesc.setAttribute('content', t.seoDesc);
+        }
+        
+        const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+        if (twitterTitle && t.seoTitle) {
+          twitterTitle.setAttribute('content', t.seoTitle);
+        }
+        
+        const twitterDesc = document.querySelector('meta[name="twitter:description"]');
+        if (twitterDesc && t.seoDesc) {
+          twitterDesc.setAttribute('content', t.seoDesc);
+        }
+      }, [lang, t]);
 
       useEffect(() => {
         window.scrollTo(0, 0);
@@ -976,8 +1023,6 @@ import React, { useEffect, useRef, useState } from 'react';
           setStatus('error');
         }
       };
-
-      const t = TRANSLATIONS[lang];
 
       return (
         <div className="landing">
@@ -1205,7 +1250,7 @@ import React, { useEffect, useRef, useState } from 'react';
                 <span className="hero-role-wrap">
                   <span className="hero-role">Web Developer</span>
                 </span>
-                <span className="sr-only"> - JRG Studio | Mejores creadores de páginas web en el País Vasco, desarrollador web freelance.</span>
+                <span className="sr-only"> - JRG estudio | Mejores creadores de páginas web en el País Vasco, desarrollador web freelance.</span>
               </h1>
 
               {/* Sparkles Divider Effect */}
@@ -1263,6 +1308,380 @@ import React, { useEffect, useRef, useState } from 'react';
             </div>
           </header>
 
+          {/* MY GOOGLE BUSINESS - PRO VERSION (BRAND PALETTE) */}
+          <section id="reputation" className="section maps-reputation" style={{ position: 'relative', overflow: 'hidden', zIndex: 5 }}>
+            <ContainerScroll
+              plainCard={true}
+              titleComponent={
+                <div className="section-header" style={{ position: 'relative', zIndex: 10, marginBottom: '2rem' }}>
+                  <span className="section-label" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                    <svg viewBox="0 0 24 24" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                    </svg>
+                    {t.mapsLabel || "Google Business"}
+                  </span>
+                  <h2>{t.myGoogleTitle}</h2>
+                  <p style={{ maxWidth: '650px', margin: '0 auto' }}>{t.myGoogleDesc}</p>
+                </div>
+              }
+            >
+              <div className="maps-showcase premium-google-showcase" style={{ 
+                background: 'linear-gradient(135deg, var(--navy-dark) 0%, #0c182d 100%)', 
+                borderRadius: '32px', 
+                border: '1px solid rgba(255,255,255,0.06)', 
+                boxShadow: '0 40px 80px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.08)', 
+                padding: 'clamp(1.5rem, 4vw, 3.5rem)', 
+                maxWidth: '1080px',
+                margin: '0 auto',
+                position: 'relative', 
+                overflow: 'hidden' 
+              }}>
+                {/* Tech grid pattern background */}
+                <div style={{
+                  position: 'absolute',
+                  inset: 0,
+                  backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px)',
+                  backgroundSize: '32px 32px',
+                  opacity: 0.8,
+                  pointerEvents: 'none',
+                  zIndex: 0
+                }} aria-hidden="true"></div>
+
+                {/* Harmonious Google colors ambient glows (Premium mesh gradient effect adapted to Brand Palette) */}
+                <div className="maps-bg-glow" style={{ 
+                  background: `
+                    radial-gradient(circle at 15% 15%, rgba(var(--navy-rgb), 0.35) 0%, transparent 55%),
+                    radial-gradient(circle at 85% 85%, rgba(var(--ash-rgb), 0.12) 0%, transparent 45%),
+                    radial-gradient(circle at 80% 20%, rgba(var(--navy-rgb), 0.20) 0%, transparent 50%)
+                  `, 
+                  opacity: 1, 
+                  pointerEvents: 'none', 
+                  position: 'absolute', 
+                  inset: 0,
+                  zIndex: 1 
+                }} aria-hidden="true"></div>
+                
+                <div className="maps-content premium-google-content" style={{ display: 'flex', flexWrap: 'wrap', gap: '3.5rem', alignItems: 'center', position: 'relative', zIndex: 2 }}>
+                  
+                  {/* Left: Floating Glass Card (Reviews) */}
+                  <div className="maps-visual" style={{ flex: '1 1 400px', perspective: '1000px', position: 'relative', pointerEvents: 'auto' }}>
+                    <div className="maps-review-card premium-review-card" style={{ 
+                      background: 'rgba(255, 255, 255, 0.02)',
+                      backdropFilter: 'blur(20px)',
+                      WebkitBackdropFilter: 'blur(20px)',
+                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      boxShadow: '0 30px 60px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.1)',
+                      borderRadius: '24px',
+                      padding: '2.5rem',
+                      width: '100%',
+                      position: 'relative',
+                      transition: 'transform 0.5s var(--ease-spring), box-shadow 0.5s ease, border-color 0.5s ease'
+                    }}>
+                      
+                      {/* Floating G Pin with animated pulse */}
+                      <div className="maps-pin-glow" style={{ position: 'absolute', top: '-20px', right: '-20px', zIndex: 10 }}>
+                        <div className="pin-icon-wrap" style={{ 
+                          background: 'var(--white)', 
+                          borderRadius: '50%', 
+                          padding: '14px', 
+                          boxShadow: '0 10px 30px rgba(0,0,0,0.3)', 
+                          position: 'relative',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                        }}>
+                          <div className="pin-pulse-ring"></div>
+                          <svg viewBox="0 0 24 24" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                          </svg>
+                        </div>
+                      </div>
+
+                      {/* Card Content */}
+                      <div className="maps-review-header" style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+                        {/* Avatar with brand gradient border */}
+                        <div className="avatar-glow-wrap" style={{ position: 'relative', padding: '3px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--navy), var(--ash))' }}>
+                          <div className="maps-avatar" style={{ 
+                            background: '#0f1d36', 
+                            color: 'var(--white)', 
+                            fontWeight: '700', 
+                            width: '52px', 
+                            height: '52px', 
+                            fontSize: '1.4rem', 
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            justifyContent: 'center', 
+                            borderRadius: '50%' 
+                          }}>
+                            J
+                          </div>
+                        </div>
+                        <div className="maps-reviewer">
+                          <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <span className="maps-name" style={{ fontSize: '1.35rem', color: 'var(--white)', fontWeight: '600', letterSpacing: '-0.01em' }}>JRG estudio</span>
+                            {/* Google Verified Icon (Adapted to Brand Palette) */}
+                            <span title="Perfil Verificado en Google" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'var(--navy)', borderRadius: '50%', width: '16px', height: '16px', marginLeft: '8px', border: '1px solid rgba(255,255,255,0.2)' }}>
+                              <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="#fff" strokeWidth="4">
+                                <polyline points="20 6 9 17 4 12" />
+                              </svg>
+                            </span>
+                          </div>
+                          <span className="maps-time" style={{ color: 'rgba(225, 232, 237, 0.65)', fontSize: '0.85rem', display: 'block', marginTop: '2px' }}>Agencia de Desarrollo Web</span>
+                        </div>
+                      </div>
+
+                      {/* Stars Rating */}
+                      <div className="maps-stars" style={{ display: 'flex', gap: '6px', marginBottom: '1.5rem', alignItems: 'center' }}>
+                        <span style={{ color: 'var(--white)', fontWeight: '800', fontSize: '1.5rem', marginRight: '6px', letterSpacing: '-0.02em' }}>4.7</span>
+                        {[1,2,3,4].map(i => (
+                          <div key={i} className="star-pulse">
+                            <i data-lucide="star" style={{ color: '#FBBC05', fill: '#FBBC05', width: '20px', height: '20px', filter: 'drop-shadow(0 0 8px rgba(251,188,5,0.4))' }}></i>
+                          </div>
+                        ))}
+                        <div className="star-pulse">
+                          <i data-lucide="star-half" style={{ color: '#FBBC05', fill: '#FBBC05', width: '20px', height: '20px', filter: 'drop-shadow(0 0 8px rgba(251,188,5,0.4))' }}></i>
+                        </div>
+                        <span style={{ color: 'rgba(225, 232, 237, 0.45)', fontSize: '0.85rem', marginLeft: '6px' }}>(Reseñas verificadas)</span>
+                      </div>
+
+                      {/* Testimonial Quote */}
+                      <div style={{ position: 'relative' }}>
+                        {/* Huge quote mark styling */}
+                        <span style={{ 
+                          position: 'absolute', 
+                          top: '-25px', 
+                          left: '-15px', 
+                          fontSize: '5rem', 
+                          fontFamily: 'serif', 
+                          color: 'rgba(255,255,255,0.06)',
+                          lineHeight: 1,
+                          pointerEvents: 'none'
+                        }}>“</span>
+                        
+                        <p className="maps-review-body" style={{ 
+                          color: 'rgba(255,255,255,0.9)', 
+                          fontSize: '1.05rem', 
+                          lineHeight: '1.75', 
+                          fontStyle: 'normal',
+                          position: 'relative',
+                          zIndex: 1,
+                          margin: 0
+                        }}>
+                          "Increíble nivel de detalle y profesionalidad. La página web vuela, el diseño es espectacular y la comunicación de 10. Totalmente recomendado."
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right: Dashboard Analytics Metrics & CTA */}
+                  <div className="maps-stats premium-google-actions" style={{ flex: '1 1 450px', display: 'flex', flexDirection: 'column', gap: '2.5rem', position: 'relative', zIndex: 10 }}>
+                    
+                    {/* Live Sync Pill Badge */}
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '100px', width: 'fit-content' }}>
+                      <span className="live-dot-pulse"></span>
+                      <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.78rem', fontWeight: '600', letterSpacing: '0.05em', textTransform: 'uppercase' }}>Google API Sincronizado</span>
+                    </div>
+
+                    {/* Premium Grid metrics layout */}
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
+                      
+                      <div className="premium-metric-card" style={{ 
+                        background: 'rgba(255,255,255,0.02)', 
+                        border: '1px solid rgba(255,255,255,0.05)', 
+                        borderRadius: '16px', 
+                        padding: '1.25rem',
+                        transition: 'transform 0.3s ease, border-color 0.3s ease'
+                      }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                          <i data-lucide="star" style={{ color: '#FBBC05', width: 18, height: 18, fill: '#FBBC05' }}></i>
+                          <span style={{ fontSize: '0.82rem', color: 'rgba(225, 232, 237, 0.5)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.03em' }}>Google Rating</span>
+                        </div>
+                        <div style={{ fontSize: '1.8rem', fontWeight: '800', color: 'var(--white)', letterSpacing: '-0.02em', display: 'flex', alignItems: 'baseline', gap: '4px' }}>
+                          4.7 <span style={{ fontSize: '1rem', color: 'rgba(225,232,237,0.4)', fontWeight: '500' }}>/ 5</span>
+                        </div>
+                        <div style={{ fontSize: '0.85rem', color: 'rgba(225,232,237,0.6)', marginTop: '4px' }}>
+                          Opinión excelente en el sector
+                        </div>
+                      </div>
+
+                      <div className="premium-metric-card" style={{ 
+                        background: 'rgba(255,255,255,0.02)', 
+                        border: '1px solid rgba(255,255,255,0.05)', 
+                        borderRadius: '16px', 
+                        padding: '1.25rem',
+                        transition: 'transform 0.3s ease, border-color 0.3s ease'
+                      }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                          <i data-lucide="award" style={{ color: 'var(--ash)', opacity: 0.8, width: 18, height: 18 }}></i>
+                          <span style={{ fontSize: '0.82rem', color: 'rgba(225, 232, 237, 0.5)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.03em' }}>SEO Local</span>
+                        </div>
+                        <div style={{ fontSize: '1.8rem', fontWeight: '800', color: 'var(--white)', letterSpacing: '-0.02em' }}>
+                          +50
+                        </div>
+                        <div style={{ fontSize: '0.85rem', color: 'rgba(225,232,237,0.6)', marginTop: '4px' }}>
+                          Palabras clave en el Top 3
+                        </div>
+                      </div>
+
+                      <div className="premium-metric-card" style={{ 
+                        gridColumn: '1 / span 2',
+                        background: 'rgba(255,255,255,0.02)', 
+                        border: '1px solid rgba(255,255,255,0.05)', 
+                        borderRadius: '16px', 
+                        padding: '1.25rem',
+                        transition: 'transform 0.3s ease, border-color 0.3s ease'
+                      }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <div style={{ background: 'rgba(255, 255, 255, 0.05)', padding: '8px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.08)' }}>
+                            <i data-lucide="phone-call" style={{ color: 'var(--white)', width: 18, height: 18 }}></i>
+                          </div>
+                          <div>
+                            <span style={{ fontSize: '0.8rem', color: 'rgba(225, 232, 237, 0.5)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.03em', display: 'block' }}>Llamadas & Conversión</span>
+                            <div style={{ fontSize: '1.15rem', color: 'var(--white)', fontWeight: '600', marginTop: '2px' }}>
+                              Visibilidad directa a llamada directa
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    {/* Google Action Call Button - Matched to Brand primary button styling */}
+                    <a href="https://www.google.com/search?sca_esv=0a8c4c9e4d4dd4e5&sxsrf=APpeQnubaBMUE7jGHDvhqfKRAbA-dNJa0A%3A1781998738575&q=JRG%20estudio&stick=H4sIAAAAAAAAAONgU1I1qEg0SzZISTVINE5ONjEyNjG1MqgwMzK3NLIwTUo1MDA2N09OW8TK7RXkrpBaXFKakpkPAAGO6OI3AAAA&mat=CWYuBBgaRwSh&ved=2ahUKEwj47bXO_paVAxXSnycCHSyoEb0QrMcEegQIFxAC" 
+                       target="_blank" rel="noopener noreferrer" 
+                       className="btn-primary premium-google-btn" 
+                       style={{ 
+                         display: 'inline-flex',
+                         alignItems: 'center',
+                         justifyContent: 'center',
+                         gap: '0.75rem',
+                         position: 'relative',
+                         zIndex: 99,
+                         cursor: 'pointer',
+                         textDecoration: 'none',
+                         color: '#ffffff',
+                         pointerEvents: 'auto',
+                         overflow: 'hidden'
+                       }}
+                    >
+                      <span className="btn-shine-sweep"></span>
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', position: 'relative', zIndex: 2 }}>
+                        {t.myGoogleBtn}
+                        <i data-lucide="arrow-up-right" className="arrow-icon-shift" style={{ width: 18, height: 18, transition: 'transform 0.3s ease' }}></i>
+                      </span>
+                    </a>
+                    
+                    {/* Embedded Style Block */}
+                    <style dangerouslySetInnerHTML={{__html: `
+                      .premium-review-card:hover {
+                        transform: translateY(-8px) rotateY(-2deg) rotateX(2deg) scale(1.02);
+                        box-shadow: 0 40px 80px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.2) !important;
+                        border-color: rgba(255,255,255,0.2) !important;
+                      }
+                      
+                      .premium-metric-card:hover {
+                        transform: translateY(-4px);
+                        border-color: rgba(var(--navy-rgb), 0.25) !important;
+                        background: rgba(255,255,255,0.04) !important;
+                      }
+                      
+                      .live-dot-pulse {
+                        width: 8px;
+                        height: 8px;
+                        background-color: #10B981;
+                        border-radius: 50%;
+                        display: inline-block;
+                        animation: led-blink 1.8s infinite;
+                      }
+                      
+                      .pin-pulse-ring {
+                        position: absolute;
+                        inset: -6px;
+                        border: 2px solid rgba(var(--navy-rgb), 0.4);
+                        border-radius: 50%;
+                        animation: ring-ripple 2s infinite ease-out;
+                      }
+
+                      .premium-google-btn {
+                        background: var(--navy);
+                        border: 1px solid rgba(255, 255, 255, 0.15);
+                        padding: 14px 32px;
+                        font-weight: 600;
+                        font-size: 1.05rem;
+                        transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
+                      }
+
+                      .premium-google-btn:hover {
+                        transform: translateY(-4px);
+                        background: var(--navy-dark) !important;
+                        border-color: rgba(255, 255, 255, 0.4) !important;
+                        box-shadow: 0 15px 40px rgba(var(--navy-rgb), 0.35) !important;
+                      }
+
+                      .premium-google-btn:hover .arrow-icon-shift {
+                        transform: translate(3px, -3px);
+                      }
+
+                      .btn-shine-sweep {
+                        position: absolute;
+                        top: 0;
+                        left: -100%;
+                        width: 50%;
+                        height: 100%;
+                        background: linear-gradient(
+                          to right,
+                          rgba(255, 255, 255, 0) 0%,
+                          rgba(255, 255, 255, 0.15) 50%,
+                          rgba(255, 255, 255, 0) 100%
+                        );
+                        transform: skewX(-25deg);
+                        transition: none;
+                        z-index: 1;
+                      }
+
+                      .premium-google-btn:hover .btn-shine-sweep {
+                        animation: shine-sweep-anim 1.2s ease-out;
+                      }
+
+                      @keyframes shine-sweep-anim {
+                        100% { left: 150%; }
+                      }
+
+                      @keyframes led-blink {
+                        0%, 100% { opacity: 0.4; }
+                        50% { opacity: 1; }
+                      }
+
+                      @keyframes ring-ripple {
+                        0% { transform: scale(1); opacity: 1; }
+                        100% { transform: scale(1.4); opacity: 0; }
+                      }
+                      
+                      .star-pulse {
+                        animation: star-glow-pulse 3s infinite ease-in-out;
+                      }
+                      .star-pulse:nth-child(2) { animation-delay: 0.2s; }
+                      .star-pulse:nth-child(3) { animation-delay: 0.4s; }
+                      .star-pulse:nth-child(4) { animation-delay: 0.6s; }
+                      .star-pulse:nth-child(5) { animation-delay: 0.8s; }
+                      
+                      @keyframes star-glow-pulse {
+                        0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(251,188,5,0.2)); }
+                        50% { transform: scale(1.08); filter: drop-shadow(0 0 10px rgba(251,188,5,0.6)); }
+                      }
+                    `}} />
+                  </div>
+                </div>
+              </div>
+            </ContainerScroll>
+          </section>
+
           {/* FEATURES */}
           <section id="features" className="section features">
             <ContainerScroll
@@ -1279,74 +1698,6 @@ import React, { useEffect, useRef, useState } from 'react';
                 {getFeatures(lang).map((f) => (
                   <FeatureCard key={f.title} feature={f} />
                 ))}
-              </div>
-            </ContainerScroll>
-          </section>
-
-          {/* GOOGLE MAPS REPUTATION */}
-          <section id="reputation" className="section maps-reputation">
-            <ContainerScroll
-              plainCard={true}
-              titleComponent={
-                <div className="section-header">
-                  <span className="section-label">
-                    <i data-lucide="map-pin" style={{ width: 14, height: 14, marginRight: 6 }}></i>
-                    {t.mapsLabel}
-                  </span>
-                  <h2>{t.mapsTitle}</h2>
-                  <p>{t.mapsDesc}</p>
-                </div>
-              }
-            >
-              <div className="maps-showcase">
-                <div className="maps-bg-glow" aria-hidden="true"></div>
-                
-                <div className="maps-content">
-                  {/* Visual Left: Floating Review & Stars */}
-                  <div className="maps-visual">
-                    <div className="maps-pin-glow">
-                      <div className="maps-pin-pulse"></div>
-                      <i data-lucide="map-pin" className="maps-pin-icon"></i>
-                    </div>
-
-                    <div className="maps-review-card floating-anim">
-                      <div className="maps-review-header">
-                        <div className="maps-avatar">{t.mapsReviewName.charAt(0)}</div>
-                        <div className="maps-reviewer">
-                          <span className="maps-name">{t.mapsReviewName}</span>
-                          <span className="maps-time">{t.mapsReviewTime}</span>
-                        </div>
-                        <div className="maps-google-icon">
-                          {/* Fake Google G icon */}
-                          <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-                          </svg>
-                        </div>
-                      </div>
-                      <div className="maps-stars">
-                        {[1,2,3,4,5].map(i => (
-                          <i key={i} data-lucide="star" className="maps-star-filled"></i>
-                        ))}
-                      </div>
-                      <p className="maps-review-body">{t.mapsReviewText}</p>
-                    </div>
-                  </div>
-
-                  {/* Right: Info/Stats */}
-                  <div className="maps-stats">
-                    <div className="maps-stat-item">
-                      <h4 className="maps-stat-value">5.0</h4>
-                      <p className="maps-stat-label">Valoración perfecta</p>
-                    </div>
-                    <div className="maps-stat-item">
-                      <h4 className="maps-stat-value">+300%</h4>
-                      <p className="maps-stat-label">Visibilidad local</p>
-                    </div>
-                  </div>
-                </div>
               </div>
             </ContainerScroll>
           </section>
