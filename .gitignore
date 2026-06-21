@@ -5,3 +5,5 @@ dist/
 .DS_Store
 *.zip
 *.msi
+node_bin/
+nodejs/

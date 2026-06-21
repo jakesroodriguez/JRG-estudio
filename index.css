@@ -5013,7 +5013,7 @@ body.scroll-locked {
   width: 260px;
   box-shadow: 0 16px 32px rgba(var(--navy-rgb), 0.08);
   z-index: 2;
-  animation: float-slow 6s ease-in-out infinite;
+  animation: none;
 }
 
 @keyframes float-slow {
@@ -5479,14 +5479,28 @@ body.scroll-locked {
   /* Maps Reputation Fix */
   .maps-visual {
     min-height: auto !important;
-    padding-top: 20px !important;
+    padding-top: 0 !important;
+    flex-basis: auto !important;
+    max-width: 100% !important;
+    display: block !important;
   }
   .maps-pin-glow {
     position: absolute !important;
-    top: -20px !important;
-    right: -10px !important;
-    transform: scale(0.6) !important;
-    transform-origin: top right !important;
+    top: 28px !important;
+    left: 62px !important;
+    right: auto !important;
+    transform: none !important;
+    margin-bottom: 0 !important;
+    z-index: 10 !important;
+  }
+  .maps-pin-glow > div {
+    border-radius: 50% !important;
+    padding: 6px !important;
+  }
+  .maps-profile-img-wrap {
+    width: 82px !important;
+    height: 82px !important;
+    border-radius: 50% !important;
   }
   .maps-review-card {
     position: relative !important;
@@ -5494,6 +5508,29 @@ body.scroll-locked {
     right: auto !important;
     width: 100% !important;
     z-index: 5 !important;
+    margin-left: 0 !important;
+    padding-top: 1.5rem !important;
+  }
+  .maps-review-header {
+    flex-direction: row !important;
+    gap: 0 !important;
+  }
+  .avatar-glow-wrap {
+    display: none !important;
+  }
+  .maps-reviewer {
+    padding-left: 137px !important;
+    padding-right: 0 !important;
+  }
+  .maps-reviewer > div {
+    justify-content: flex-start !important;
+  }
+  .maps-stars {
+    justify-content: flex-start !important;
+    margin-left: -14px !important;
+  }
+  .maps-review-card p {
+    text-align: left !important;
   }
 
   /* Portfolio Grid Fix */
@@ -5574,6 +5611,36 @@ body.scroll-locked {
   .footer-cta-line2 {
     font-size: clamp(1.8rem, 7vw, 2.5rem) !important;
   }
+  
+  /* CTA Mobile Fixes */
+  .desktop-only-card {
+    display: none !important;
+  }
+  .mobile-only-card {
+    display: block !important;
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%) rotate(5deg);
+    z-index: 10;
+    pointer-events: none;
+    animation: float-slow 6s ease-in-out infinite alternate;
+    filter: drop-shadow(0 30px 50px rgba(0,0,0,0.8));
+  }
+  .cta-inner-custom {
+    margin-right: auto !important;
+    margin-left: auto !important;
+    width: 100% !important;
+  }
+  .hero-available-chip,
+  .footer-avail-status {
+    display: none !important;
+  }
+}
+
+/* === UTILITIES & VISIBILITY === */
+.mobile-only-card {
+  display: none !important;
 }
 
 /* === ACCESSIBILITY & SEO === */
