@@ -112,7 +112,7 @@ La paleta de marca está definida como tokens CSS en `:root`:
 |---|---|---|
 | [Gure Trena](https://guretrenaurretxu.com/) | Bar tradicional en Urretxu | React, Vite, Tailwind |
 | [Urkulu Móviles](https://urkulumovilesurretxu.com/) | Tienda reparación móviles | React, Vite, Tailwind |
-| [Korta Taberna](https://kortataberna.vercel.app/) | Restaurante familiar en Zumarraga | HTML5, CSS3, JS |
+| [Otxaran Denda](https://otxaran-denda.vercel.app/) | Tienda de ropa de mujer | HTML5, Tailwind, JS |
 
 ---
 

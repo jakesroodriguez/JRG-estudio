@@ -793,11 +793,11 @@ import React, { useEffect, useRef, useState } from 'react';
       },
       {
         id: 3,
-        title: 'Korta Taberna',
-        desc: lang === 'es' ? 'Cocina de brasa, pintxos y producto de cercanía. Tradición familiar en Zumarraga.' : lang === 'en' ? 'Grilled cuisine, pintxos and local products. Family tradition in Zumarraga.' : 'Eguneroko pintxoak, brasa sukaldaritza eta familia tradizioa Zumarragan.',
-        image: '/portfolio-3.webp',
-        link: 'https://kortataberna.vercel.app/?lang=eu',
-        tech: ['HTML5', 'CSS3', 'JavaScript']
+        title: 'Otxaran Denda',
+        desc: lang === 'es' ? 'Tienda de ropa de mujer con estilo y calidad.' : lang === 'en' ? 'Women\'s clothing store with style and quality.' : 'Emakumeentzako arropa denda estilo eta kalitatearekin.',
+        image: '/portfolio-otxaran.png',
+        link: 'https://otxaran-denda.vercel.app/',
+        tech: ['HTML5', 'Tailwind', 'JavaScript']
       }
     ];
 
